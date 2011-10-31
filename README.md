@@ -1,7 +1,5 @@
-# [Twitter Boostrap Skeleton](https://github.com/balupton/bootstrap.docpad) for [DocPad](https://github.com/balupton/docpad)
+# presentation I'm making
 
-Skeleton developed by [Benjamin Lupton](http://balupton.com) and licensed under the [MIT License](http://creativecommons.org/licenses/MIT/)
+presentation I'm making, about the wonders of deck.js along with markdown2deckjs
 
-[Twitter Bootstrap](http://twitter.github.com/bootstrap/) developed by [Twitter](https://dev.twitter.com/blog/bootstrap-twitter) and licensed under the [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-[DocPad](https://github.com/balupton/docpad) is the easiest way to generate your static websites. Why not give it a go?
+written in jade rendered in docpad
