@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    
+    <title>Presentation</title>
+    <meta name="description" content="A jQuery library for modern HTML presentations" />
+    <meta name="viewport" content="width=1024, user-scalable=no" />
+    
+    <!-- Core and extension CSS files -->
+    <link rel="stylesheet" href="/deckdemo/scripts/core/deck.core.css" />
+    <link rel="stylesheet" href="/deckdemo/scripts/extensions/goto/deck.goto.css" />
+    <link rel="stylesheet" href="/deckdemo/scripts/extensions/menu/deck.menu.css" />
+    <link rel="stylesheet" href="/deckdemo/scripts/extensions/navigation/deck.navigation.css" />
+    <link rel="stylesheet" href="/deckdemo/scripts/extensions/status/deck.status.css" />
+    <link rel="stylesheet" href="/deckdemo/scripts/extensions/hash/deck.hash.css" />
+<link rel="stylesheet" href="/deckdemo/scripts/extensions/hash/deck.scale.css" />
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu|Josefin+Sans|Atomic+Age|Quicksand|Pinyon+Script|Gochi+Hand|Astloch' rel='stylesheet' type='text/css'>
+    <!-- Theme CSS files (menu swaps these out) -->
+    <link rel="stylesheet" id="style-theme-link" href="/deckdemo/styles/themes/style/otp.css" />
+    <link rel="stylesheet" id="transition-theme-link" href="/deckdemo/styles/themes/transition/horizontal-slide.css" />
+    <script type="text/javascript">
+   
+      function drawChart() {
+var gd = document.getElementById('good').value.replace("'", "\\'");
+var bd = document.getElementById('bad').value.replace("'", "\\'");
+      // Create the data table.
+    document.getElementById("chart").src="https://chart.googleapis.com/chart?cht=p3&chs=600x200&chl=Lame|Awsome&chco=FF0000|00FF00&chtt=People+Who+Think+This+is&chd=t:" + bd + "," + gd
+    }
+    function SelectAll(id)
+{
+    document.getElementById(id).focus();
+    document.getElementById(id).select();
+}
+    </script>
+     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['orgchart', 'table']});
+    </script>
+    <script type="text/javascript">
+    var map;
+    var table;
+    var data;
+
+    function drawOrgChartAndTable() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Name');
+      data.addColumn('string', 'Manager');
+      data.addRows(13);
+      data.setCell(0, 0, 'David');
+      data.setCell(1, 0, 'Clinton');
+      data.setCell(1, 1, 'David');
+      data.setCell(2, 0, 'Bob');
+      data.setCell(2, 1, 'Clinton');
+      data.setCell(3, 0, 'Steve');
+      data.setCell(3, 1, 'Clinton');
+      data.setCell(4, 0, 'Ned');
+      data.setCell(4, 1, 'Clinton');
+      data.setCell(5, 0, 'Lee Ann');
+      data.setCell(5, 1, 'Clinton');
+    data.setCell(6, 0, 'Kevin');
+      data.setCell(6, 1, 'Bob');
+      data.setCell(7, 0, 'Kate');
+      data.setCell(7, 1, 'Steve');
+      data.setCell(8, 0, 'Catherine');
+      data.setCell(8, 1, 'Steve');
+      data.setCell(9, 0, 'Lionel');
+      data.setCell(9, 1, 'Ned');
+      data.setCell(10, 0, 'Mark');
+      data.setCell(10, 1, 'Ned');
+      data.setCell(11, 0, 'Vacant');
+      data.setCell(11, 1, 'Ned');
+      data.setCell(12, 0, 'Stephen');
+      data.setCell(12, 1, 'Steve');
+      var orgchart = new google.visualization.OrgChart(document.getElementById('orgchart'));
+      orgchart.draw(data, {allowCollapse:true});
+      orgchart.collapse(0, true);
+      orgchart.collapse(1, true);
+orgchart.collapse(2, true);
+    orgchart.collapse(3, true);
+    orgchart.collapse(4, true);
+    
+      var table = new google.visualization.Table(document.getElementById('table'));
+      table.draw(data, null);
+      
+      // When the table is selected, update the orgchart.
+      google.visualization.events.addListener(table, 'select', function() {
+        orgchart.setSelection(table.getSelection());
+      });
+    
+      // When the orgchart is selected, update the table visualization.
+      google.visualization.events.addListener(orgchart, 'select', function() {
+        table.setSelection(orgchart.getSelection());
+      });  
+    }
+
+    google.setOnLoadCallback(drawOrgChartAndTable);
+    </script>
+    <script type="text/javascript" href="/deckdemo/lib/paper.js"></script>
+    <script type="text/paperscript" canvas="canvas">
+// Code ported to Paper.js from http://the389.com/9/1/
+// with permission.
+//I grabed it from paperjs.org
+
+var values = {
+    friction: 0.8,
+    timeStep: 0.01,
+    amount: 15,
+    mass: 2,
+    count: 0
+};
+values.invMass = 1 / values.mass;
+
+var path;
+var size = view.size * [1.2, 1];
+
+var Spring = Base.extend({
+    initialize: function(a, b, param) {
+        if (!param)
+            param = {};
+        this.a = a;
+        this.b = b;
+        this.restLength = param.restLength || 80;
+        this.strength = param.strength ? param.strength : 0.55;
+        this.mamb = values.invMass * values.invMass;
+    },
+    
+    update: function() {
+        var delta = this.b - this.a;
+        var dist = delta.length;
+        var normDistStrength = (dist - this.restLength) /
+                (dist * (this.mamb)) * this.strength;
+        delta.y *= (normDistStrength * values.invMass) / 5;
+        if (!this.a.fixed)
+            this.a.y += delta.y;
+        if (!this.b.fixed)
+            this.b.y -= delta.y;
+    }
+});
+
+onResize();
+
+function createPath(strength) {
+    var path = new Path();
+    path.data = {};
+    path.data.springs = [];
+    path.fillColor = 'blue';
+    segments = path.segments;
+    var previous;
+    for (var i = 0; i <= values.amount; i++) {
+        var segment = path.add(new Point(i / values.amount, 0.5) * size);
+        var point = segment.point;
+        point.px = point.x;
+        point.py = point.y;
+        point.fixed = i === 0 || i == values.amount;
+        if (previous) {
+            var spring = new Spring(previous, point, {
+                strength: strength
+            });
+            path.data.springs.push(spring);
+        }
+        previous = point;
+    }
+    path.position.x -= size.width / 4;
+    return path;
+}
+
+function onResize() {
+    values.count = 0;
+    if (path) {
+        path.remove();
+    }
+    size = view.bounds.size * [2, 1];
+    path = createPath(0.1);
+}
+
+function onMouseMove(event) {
+    var segments = path.segments;
+    var index = Math.floor((event.point.x + size.width / 4) * segments.length / size.width);
+    var y = event.point.y;
+    var range = size.height / 4;
+    var segment = segments[index];
+    var point = segment.point;
+    var prev, next;
+    if (segment.previous)
+        prev = segment.previous.point;
+    if (segment.next)
+        next = segment.next.point;
+
+    if (!point.fixed && y + range > point.y && y - range < point.y) {
+        point.y += (y - point.y) / 6;
+        if (prev && !prev.fixed) prev.y += (y - prev.y) / 12;
+        if (next && !next.fixed) next.y += (y - next.y) / 12;
+    }
+}
+
+function onFrame(event) {
+    if (values.count != 0) {
+        path.firstSegment.remove();
+        path.lastSegment.remove();
+    }
+    updateWave(path);
+    values.count++;
+}
+
+function updateWave(path) {
+    var segments = path.segments;
+    var force = 1 - values.friction * values.timeStep * values.timeStep;
+    for (var i = 0, l = segments.length; i < l; i++) {
+        var point = segments[i].point;
+        var ty = point.y;
+        var dy = (point.y - point.py) * force;
+        point.y += dy;
+        point.py = ty;
+        point.y = Math.max(0, point.y);
+    }
+
+    for (var j = 0, l = path.data.springs.length; j < l; j++) {
+        path.data.springs[j].update(true);
+    }
+    path.smooth();
+    path.insert(0, new Point(0, size.height));
+    path.add(new Point(size));
+}
+
+function onKeyDown(event) {
+    if (event.key == 'space')
+        path.fullySelected = !path.fullySelected;
+}
+</script>
+    <script href="/deckdemo/raphael-min.js"></script>
+        <!--from http://raphaeljs.com/ichart.html-->
+        <script>
+            window.onload = function () {
+                var W = 640,
+                    H = 480,
+                    r = Raphael("holder", W, H),
+                    values = [],
+                    len = 7;
+                for (var i = len; i--;) {
+                    values.push(50);
+                }
+                
+                function translate(x, y) {
+                    return [
+                        50 + (W - 60) / (values.length - 1) * x,
+                        H - 10 - (H - 20) / 100 * y
+                    ];
+                }
+                
+                function drawPath() {
+                    var p = [];
+                    for (var j = 1, jj = X.length; j < jj; j++) {
+                        p.push(X[j], Y[j]);
+                    }
+                    p = ["M", X[0], Y[0], "R"].concat(p);
+                    var subaddon = "L" + (W - 10) + "," + (H - 10) + ",50," + (H - 10) + "z";
+                    path.attr({path: p});
+                    sub.attr({path: p + subaddon});
+                }
+                
+                var p = [["M"].concat(translate(0, values[0]))],
+                    color = "hsb(240°, 1, 1)",
+                    X = [],
+                    Y = [],
+                    blankets = r.set(),
+                    buttons = r.set(),
+                    w = (W - 60) / values.length,
+                    isDrag = -1,
+                    start = null,
+                    sub = r.path().attr({stroke: "none", fill: [90, color, color].join("-"), opacity: 0}),
+                    path = r.path().attr({stroke: color, "stroke-width": 2}),
+                    unhighlight = function () {};
+                var ii;
+                for (i = 0, ii = values.length - 1; i < ii; i++) {
+                    var xy = translate(i, values[i]),
+                        xy1 = translate(i + 1, values[i + 1]),
+                        f;
+                    X[i] = xy[0];
+                    Y[i] = xy[1];
+                    (f = function (i, xy) {
+                        buttons.push(r.circle(xy[0], xy[1], 5).attr({fill: color, stroke: "none"}));
+                        blankets.push(r.circle(xy[0], xy[1], w / 2).attr({stroke: "none", fill: "#fff", opacity: 0}).mouseover(function () {
+                            if (isDrag + 1) {
+                                unhighlight = function () {};
+                            } else {
+                                buttons.items[i].animate({r: 10}, 200);
+                            }
+                        }).mouseout(function () {
+                            if (isDrag + 1) {
+                                unhighlight = function () {
+                                    buttons.items[i].animate({r: 5}, 200);
+                                };
+                            } else {
+                                buttons.items[i].animate({r: 5}, 200);
+                            }
+                        }).drag(function (dx, dy) {
+                            var start = this.start;
+                            start && update(start.i, start.p + dy);
+                        }, function (x, y) {
+                            this.start = {i: i, m: y, p: Y[i]};
+                        }));
+                        blankets.items[blankets.items.length - 1].node.style.cursor = "move";
+                    })(i, xy);
+                    if (i == ii - 1) {
+                        f(i + 1, xy1);
+                    }
+                }
+                xy = translate(ii, values[ii]);
+                X.push(xy[0]);
+                Y.push(xy[1]);
+                
+                drawPath();
+                var update = function (i, d) {
+                    (d > H - 10) && (d = H - 10);
+                    (d < 10) && (d = 10);
+                    Y[i] = d;
+                    drawPath();
+                    buttons.items[i].attr({cy: d});
+                    blankets.items[i].attr({cy: d});
+                    r.safari();
+                };
+            };
+        </script>
+    <!-- Custom CSS just for this page -->
+    
+    
+    <script href="/deckdemo/scripts/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container"><div class="slide"><h1>Power Point Presentation PDFs</h1><h3>An Alliterative Problem</h3></div><div class="slide"><h2>Causes</h2><li class="slide">We need to make presentations</li><li class="slide">Power Point is pretty much the only program we have</li><li class="slide">People always want to see our awsome slides, so we try to post them online</li></div><div class="slide"><h2>Can't we just post .ppt files?</h2><li>I'm glad you asked</li><li class="slide">no</li><li class="slide">you need to have installed/bought powerpoint</li><li class="slide">unless you made it on power point 2007, then your out of luck if you have an old copy of powerpoint</li><li class="slide">plus you can't just view it in your web browers, you have to download it</li><li class="slide">also someone could download it and alter it, with out needing any knowledge of anything</li><li class="slide">sometimes these are huge files</li><li class="slide">sometimes the computer we're making the presentation on don't have the right powerpoint version</li><li class="slide">or is missing fonts</li><li class="slide">or a million other things</li></div><div class="slide"><h2>Whats wrong with PDFs?</h2><li class="slide">you didn't make your presentation with it, so it has to be converted, this isn't always perfect</li><li class="slide">it isn't always 508 complient</li><li class="slide">it's still a huge file</li><li class="slide">not everybody has the acrobat reader plugin installed preventing them from reading it online</li><li class="slide">some people don't even have a reader installed</li><li class="slide">technically a gross violation of the ITD policy about binary files</li></div><div class="slide"><h2>In a perfect world</h2><ol><li class="slide">Presentations would be designed from the ground up to work with the one program people visiting our site all have, a web browser.</li><li class="slide">They would be 508 complient by default</li><li class="slide">It would be as easy or easier then making them with powerpoint</li></ol></div><div class="slide"><h2>browser presentations</h2><li class="slide">several sites exist that allow you to do upload a powerpoint and get it converted to html</li><li class="slide">they are all blocked here</li><li class="slide">some of them cost money</li><li class="slide">don't work if you don't have internet access</li><li class="slide">some are deffinitly not 508 complient (google docs)</li><li class="slide">some don't work with all browsers</li></div><div class="slide"><h2>Deck.js</h2><li class="slide">it's a script, written in javascript that tuns html pages into slide shows</li><li class="slide">it's open source under the MIT liscence</li><li class="slide">it creates fancy presentations using html5 and css3</li><li class="slide">but it user modernizr to create less fancy presentations for older browsers (aka Internet Explorer)</li><li class="slide">but the files it needs to show the presentation are all local, so you can store it on a thumb drive if you don't have internet</li><li class="slide">as long as your smart and remember your alt text it's 508 comlient</li><li class="slide">our massdot site is already built using html, css, and javascript, so if you can't view that, your not getting to our page on the site</li><li class="slide">best of all, it degrades well, older browsers won't see the transitions for instance, they'll still see everything else</li></div><div class="slide"><h2>but I don't know html javascript or css</h2><li class="slide">doesn't matter it's written in javascript the same way windows is written in C, you don't have to care</li><li class="slide">css is used for the templates if your forced to fiddle with the CSS then you should be complaining to whoever made the template</li><li class="slide">for the html you will need to know it, but as you'll see if I didn't tell you you might not have realized</li></div><div class="slide"><h2>making slides</h2><li class="slide">you can code slides in a language called 'MarkDown'</li><li class="slide">it was designed for people to leave comments on pages and make them look nice</li><li class="slide">my cat could use markdown</li></div><div class="slide"><h2>markdown</h2><li class="slide"># means top level header i.e. your presentation</li><li class="slide">## means second level header i.e. a slide</li><li class="slide">### is third level and so on</li><li class="slide">so start your presentation off with # title</li><li class="slide">then on the next line write ### subtitle</li><li class="slide">then skip a line and write ## first slide title</li><li class="slide"><code># Office of Transportation Planning at MassDOT</code></li><li class="slide"><code>### David Mohler Executive Director</code></li><li class="slide"><code>## Section 10: 2009 Transportation Reform Legislation</code></li><li class="slide">want a numbered list? just start write the list starting with a number followed by a period and a space</li><li class="slide"><code>1. Establishes an Office of Transportation Planning within MassDOT</code></li><li class="slide"><code>2. Serves as principal source of transportation planning for state</code></li><li class="slide">it doesn't actually matter what the number is</li><li class="slide"><code>2. Develops state's transportation-related programs outlined in Section 10 of Reform Legislation</code></li><li class="slide">that turns into</li></div><div class="slide"><h1>Office of Transportation Planning at MassDOT</h1><h3>David Mohler Executive Director</h3></div><div class="slide"><h2>Section 10: 2009 Transportation Reform Legislation</h2><ol><li>Establishes an Office of Transportation Planning within MassDOT</li><li>Serves as principal source of transportation planning for state</li><li>Develops state's transportation-related programs outlined in Section 10 of Reform Legislation</li></ol></div><div class="slide"><h2>with the help of markdown2deckjs</h2><li class="slide">want text? just put an emptly line above and bellow a block of text</li><li class="slide"><code>## OTP Mission</code></li><li class="slide"><code>Conduct Rigorous, innovative ,and collaborative planning and technology transfer using the best data managment and analysis tools in order to move people and goods on a safe, efficient, and integrated transportation network, comply with federal and state regulations, and support vibrant communities.</code></li><li class="slide">bullet list? just start it off with an *, or a + or a -</li><li class="slide">want them to come out one by one? end the line with a ~</li><li class="slide"><code>## Why OTP is the first stop</code></li><li class="slide"><code>* We provide objective and strategic thinking~</code></li><li class="slide"><code>+ We determine need and focus on an outcome~</code></li><li class="slide"><code>- We are disciplined and mission driven~</code></li><li class="slide">this turns into</li></div><div class="slide"><h2>OTP Mission</h2><p>Conduct Rigorous, innovative ,and collaborative planning and technology transfer using the best data managment and analysis tools in order to move people and goods on a safe, efficient, and integrated transportation network, comply with federal and state regulations, and support vibrant communities.</p></div><div class="slide"><h2>Why OTP is the first stop</h2><li class="slide">We provide objective and strategic thinking</li><li class="slide">We determine need and focus on an outcome</li><li class="slide">We are disciplined and mission driven</li></div><div class="slide"><h2>want a picture</h2><li class="slide"><code>## How we do bussiness</code></li><li class="slide"><code>![alt text](Picture2.jpg)</code></li><li class="slide">turns into</li></div><div class="slide"><h2>How we do bussiness</h2><img href="/deckdemo/Picture2.jpg"/></div><div class="slide"><h2>that is it</h2><li class="slide">pictures and text are 99% of what power points have in them</li><li class="slide">you are ready to go out and make these</li><li class="slide">I don't need to tell you any more</li><li class="slide">ok I'll show you some fancy stuff we can do</li></div><div class="slide"><h2>think outside the presentation</h2><li class="slide">since we will be putting this online as is, we can add interactive elements</li><li class="slide"><a href="http://www.massdot.state.ma.us/planning" target="_blank">like links</a></li><li class="slide"><code>* [like links](http://www.massdot.state.ma.us/planning)</code></li><li class="slide">or</li></div><div class="slide"><h2>how about a webmap?</h2><iframe width="800" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/?ie=UTF8&amp;ll=42.352176,-71.06638&amp;spn=0.002299,0.002411&amp;t=h&amp;z=19&amp;vpsrc=6&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/?ie=UTF8&amp;ll=42.352176,-71.06638&amp;spn=0.002299,0.002411&amp;t=h&amp;z=19&amp;vpsrc=6&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+</div><div class="slide"><h2>how did you do that?</h2><!--thank you to http://camendesign.com/code/video_for_everybody for this-->
+<video controls="controls" width="640" height="480"><source href="/deckdemo/ppp.mp4" type="video/mp4"></source><source href="/deckdemo/ppp.ogg" type="video/ogg"></source><source href="/deckdemo/ppp.webm" type="video/webm"></source><object type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" width="640" height="480"><param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf"></param><param name="allowFullScreen" value="true"></param><param name="wmode" value="transparent"></param><param name="flashVars" value="config={'playlist':[{'url':'http://calvinmetcalf.github.com/deckdemo/ppp.flv','autoPlay':false}]}"></param></object><p>go to google maps, make your map, click the link button, choose the Paste HTML option, put that into your presentation</p></video></div><div class="slide"><h2>was that a video?</h2><li class="slide">yes</li><li class="slide">what plugin did you use to embed it?</li><li class="slide">none just html5 and the video tag</li><li class="slide">how is that accessable?</li><li class="slide">if you can't view video it has a text description of how to embed the map</li><li class="slide">how does it work in ie8 and earlier which don't support the video tag?</li><li class="slide">ok I lied there is a flash plugin to play the video then</li><li class="slide">whats with the sound?</li><li class="slide">there may have been a cat involved</li><li class="slide">how (did you do it, not how did the can mess you up)?</li><li class="slide">not really in the scope of this presentation, but it isn't too hard</li><li class="slide">what else can we do?</li></div><div style="background-color:#0077d4" class="slide"><h1 style="color:#fff;">Think Big</h1></div><div class="slide"><h2>mess with fonts</h2><li style="font-family: 'Josefin Sans'">Josefin</li><li style="font-family: 'Atomic Age'">Atomic Age</li><li style="font-family: 'Quicksand'">Quicksand</li><li style="font-family: 'Pinyon Script'">Pinyon Script</li><li style="font-family: 'Josefin Sans'">Gochi Hand</li><li style="font-family: 'Josefin Sans'">Astloch</li></div><div class="slide"><h2>take a survey</h2><form><p>Yea</p><input type="text" name="good" id="good" value="1" onClick="SelectAll('good')" onChange="drawChart()"/><p>Nay</p><input type="text" name="bad" id="bad" value="7" onClick="SelectAll('bad')" onChange="drawChart()"/></form></div><div class="slide"><h2>view the results</h2><img src="https://chart.googleapis.com/chart?cht=p3&amp;chs=600x200&amp;chl=Lame|Awsome&amp;chco=FF0000|00FF00&amp;chtt=People+Who+Think+This+is&amp;chd=t:7,1" id="chart"/></div><div class="slide"><h2>make an org chart</h2><div id="table" style="width: 300px; height: 300px;"></div><div id="orgchart" style="width: 300px; height: 300px;"></div></div><div class="slide"><h2>make a wave (unless your using ie<9 in which case make a graph)</h2><canvas id="canvas" resize="true" style="z-index:-1;"><div id="holder"></div></canvas></div><div class="slide"><h2>to sum up</h2><li class="slide">Powerpoint<ul><li class="slide">Complicated</li><li class="slide">Not portable</li><li class="slide">need the right software</li><li class="slide">often complicated to do simple things</li><li class="slide">not very 508 compliant</li></ul></li><li class="slide">Deck.js + markdown<ul><li class="slide">you already know how to use it</li><li class="slide">view it anywehre</li><li class="slide">with any browser</li><li class="slide">when it dosn't work, it still works, just doesn't look as nice</li><li class="slide">508 compliant</li></ul></li></div>
+
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<p class="deck-status">
+    <span class="deck-status-current"></span>
+    /
+    <span class="deck-status-total"></span>
+</p>
+
+<form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label>
+    <input type="number" name="slidenum" id="goto-slide">
+    <input type="submit" value="Go">
+</form>
+
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
+<script>window.jQuery</script>
+
+<!-- Deck Core and extensions -->
+<script href="/deckdemo/scripts/core/deck.core.js"></script>
+<script href="/deckdemo/scripts/extensions/menu/deck.menu.js"></script>
+<script href="/deckdemo/scripts/extensions/goto/deck.goto.js"></script>
+<script href="/deckdemo/scripts/extensions/status/deck.status.js"></script>
+<script href="/deckdemo/scripts/extensions/navigation/deck.navigation.js"></script>
+<script href="/deckdemo/scripts/extensions/hash/deck.hash.js"></script>
+<script href="/deckdemo/scripts/extensions/scale/deck.scale.js"></script>
+<script type="text/javascript">
+$(function() {
+    // Deck initialization
+    $.deck('.slide');
+    
+    $('#style-themes').change(function() {
+        $('#style-theme-link').attr('href', $(this).val());
+    });
+    
+    $('#transition-themes').change(function() {
+        $('#transition-theme-link').attr('href', $(this).val());
+    });
+
+    $('pre').click(function (){
+    $(this).toggleClass('highlighted');
+    });
+});
+</script>
+
+</body>
+</html>
