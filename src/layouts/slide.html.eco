@@ -31,8 +31,9 @@
     <script type="text/javascript" src="orgchart.js">
       
     </script>
-    <script type="text/javascript" src="lib/paper.js"></script>
+   <!--[if !IE]>--> <script type="text/javascript" src="lib/paper.js"></script>
     <script type="text/paperscript" canvas="canvas" src="paperex.js"></script>
+   <!--<![endif]-->
     <script src="raphael-min.js"></script>
         <!--from http://raphaeljs.com/ichart.html-->
         <script src="raph.js">
