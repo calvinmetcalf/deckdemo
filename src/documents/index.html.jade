@@ -7,6 +7,13 @@ title: 'Presentation'
 	h1 Power Point Presentation PDFs
 	
 	h3 An Alliterative Problem
+	
+.slide
+	h2 follow along at http://calvinmetcalf.github.com/ppp
+	
+	li move around with arrow keys
+	li or if your using Internet Explorer (IE) 8 or lower click the buttons to go back and forth
+	li you can also use the 'g' key to skip to a slide (again may not work in IE 8 and lower)
 
 .slide
 	h2 Causes
@@ -61,7 +68,7 @@ title: 'Presentation'
 	h2 Deck.js
 	
 	li.slide it's a script, written in javascript that tuns html pages into slide shows
-	li.slide it's open source under the MIT liscence
+	li.slide it's open source under the MIT license
 	li.slide it creates fancy presentations using html5 and css3
 	li.slide but it user modernizr to create less fancy presentations for older browsers \(aka Internet Explorer)
 	li.slide but the files it needs to show the presentation are all local, so you can store it on a thumb drive if you don't have internet
@@ -72,9 +79,10 @@ title: 'Presentation'
 .slide
 	h2 but I don't know html javascript or css
 
-	li.slide doesn't matter it's written in javascript the same way windows is written in C, you don't have to care
-	li.slide css is used for the templates if your forced to fiddle with the CSS then you should be complaining to whoever made the template
-	li.slide for the html you will need to know it, but as you'll see if I didn't tell you you might not have realized
+	li.slide doesn't matter, it's written in javascript the same way Windows is written in C, you don't have to care
+	li.slide css is used for the templates if your forced to fiddle with the CSS then you should be complaining to whomever made the template
+	li.slide for the html you will technically need to know it
+	li.slide but if I didn't tell you, you might not have realized
 	
 .slide
 	h2 making slides
@@ -114,7 +122,7 @@ title: 'Presentation'
 		li Develops state's transportation-related programs outlined in Section 10 of Reform Legislation
 
 .slide
-	h2 more!
+	h2 with the help of markdown2deckjs
 	
 	li.slide want text? just put an emptly line above and bellow a block of text
 	li.slide: code ## OTP Mission
@@ -146,6 +154,15 @@ title: 'Presentation'
 .slide 
 	h2 How we do bussiness
 	img(src='Picture2.jpg')
+	
+.slide 
+	h2 formating (this depends on the css code and browser settings)
+	li: em Emphasize
+	li: strong Emphasize more
+	li: code *emphisize*
+	li: code **be strong**
+	li ran<strong>dom</strong>ly
+	li: code ran**dom**ly
 
 .slide
 	h2 that is it
@@ -162,22 +179,38 @@ title: 'Presentation'
 	li.slide or
 
 .slide
+	h2 mess with fonts
+	li(style='font-family: \'Josefin Sans\'') These Fancy
+	li(style='font-family: \'Atomic Age\'') things
+	li(style='font-family: \'Quicksand\'') are not
+	li(style='font-family: \'Pinyon Script\'') necessarily
+	li(style='font-family: \'Gochi Hand\'') guaranteed
+	li(style='font-family: \'Astloch\'') to work for all
+	
+.slide
 	h2 how about a webmap?
-	<iframe width="800" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/?ie=UTF8&amp;ll=42.352176,-71.06638&amp;spn=0.002299,0.002411&amp;t=h&amp;z=19&amp;vpsrc=6&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/?ie=UTF8&amp;ll=42.352176,-71.06638&amp;spn=0.002299,0.002411&amp;t=h&amp;z=19&amp;vpsrc=6&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+	<iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/?ie=UTF8&amp;ll=42.352176,-71.06638&amp;spn=0.002299,0.002411&amp;t=h&amp;z=19&amp;vpsrc=6&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/?ie=UTF8&amp;ll=42.352176,-71.06638&amp;spn=0.002299,0.002411&amp;t=h&amp;z=19&amp;vpsrc=6&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>
 	
 .slide
 	h2 how did you do that?
 	<!--thank you to http://camendesign.com/code/video_for_everybody for this-->
-	video(controls='controls', width='640', height='480')
-			source(src='ppp.mp4', type='video/mp4')
-			source(src='ppp.ogg', type='video/ogg')
-			source(src='ppp.webm', type='video/webm')
-			object(type='application/x-shockwave-flash', data='http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf', width='640', height='480')
-				param(name='movie', value='http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf')
+	video(controls='controls', poster='http://calvinmetcalf.github.com/ppp/ppp.png', width='640', height='480')
+			source(src='http://calvinmetcalf.github.com/ppp/ppp.mp4', type='video/mp4')
+			source(src='http://calvinmetcalf.github.com/ppp/ppp.ogv', type='video/ogg')
+			source(src='http://calvinmetcalf.github.com/ppp/ppp.webm', type='video/webm')
+			object(type='application/x-shockwave-flash', data='http://player.longtailvideo.com/player.swf', width='640', height='480')
+				param(name='movie', value='http://player.longtailvideo.com/player.swf')
 				param(name='allowFullScreen', value='true')
 				param(name='wmode', value='transparent')
-				param(name='flashVars', value='config={\'playlist\':[{\'url\':\'ppp.flv\',\'autoPlay\':false}]}')
-			p go to google maps, make your map, click the link button, choose the Paste HTML option, put that into your presentation
+				param(name='flashVars', value='controlbar=over&amp;image=http://calvinmetcalf.github.com/ppp/ppp.png&amp;file=http://calvinmetcalf.github.com/ppp/ppp.flv')
+				img(alt='go to google maps, make your map, click the link button, choose the Paste HTML option, put that into your presentation', src='http://calvinmetcalf.github.com/ppp/ppp.png', width='640', height='480', title='No video playback capabilities, please download the video below')
+	p 
+		strong Download video 
+		a(href='http://calvinmetcalf.github.com/ppp/ppp.mp4') MP4 format 
+		\| 
+		a(href='http://calvinmetcalf.github.com/ppp/ppp.ogv') Ogg format 
+		\| 
+		a(href='http://calvinmetcalf.github.com/ppp/ppp.webm') WebM format
 
 .slide
 	h2 was that a video?
@@ -190,33 +223,24 @@ title: 'Presentation'
 	li.slide ok I lied there is a flash plugin to play the video then
 	li.slide whats with the sound?
 	li.slide there may have been a cat involved
-	li.slide how?
+	li.slide how (did you do it, not how did the cat mess you up)?
 	li.slide not really in the scope of this presentation, but it isn't too hard
 	li.slide what else can we do?
 	
-.slide
-	h2 mess with fonts
-	li(style='font-family: \'Josefin Sans\'') Josefin
-	li(style='font-family: \'Atomic Age\'') Atomic Age
-	li(style='font-family: \'Quicksand\'') Quicksand
-	li(style='font-family: \'Pinyon Script\'') Pinyon Script
-	li(style='font-family: \'Josefin Sans\'') Gochi Hand
-	li(style='font-family: \'Josefin Sans\'') Astloch
-	
-.slide(style='background-color:#0077d4;font-size:16em;color:#fff;')
-	li Be Big
+.slide(style='background-color:#0077d4')
+	h1(style='color:#fff;') Think Big
 	
 .slide
 	h2 take a survey
 	form
-		p yay
+		p Yea
 		input(type='text', name='good', id='good', value='1', onClick='SelectAll\(\'good\'\)', onChange='drawChart\(\)')
 		p Nay
 		input(type='text', name='bad', id='bad', value='7', onClick='SelectAll\(\'bad\'\)', onChange='drawChart\(\)')
 		
 .slide
 	h2 view the results
-	img(src='https://chart.googleapis.com/chart?cht=p3&chs=600x200&chl=Lame|Awsome&chco=FF0000|00FF00&chtt=People+Who+Think+This+is&chd=t:7,1', id='chart')
+	img(src='https://chart.googleapis.com/chart?cht=p3&chs=600x200&chl=Lame|Awesome&chco=FF0000|00FF00&chtt=People+Who+Think+This+is&chd=t:7,1', id='chart')
 	
 .slide
 	h2 make an org chart
@@ -227,20 +251,36 @@ title: 'Presentation'
 .slide
 	h2 make a graph
 	#holder
-	
+
+//if !IE
+	\-\-\>
+	.slide
+		h2 use the html5 canvas element
+		canvas(id='canvas', resize='true')
+	\<\!\-\-
+		
+.slide
+	h2 Caviats
+	li.slide Your not going to be able to magically turn all your old powerpoint presentations into html at the press of a button they need to be translated by hand
+	li.slide adding multiple images to the same slide is hard to do in a way that looks good on all screen sizes
+	li.slide this is an html thing not a deck.js thing.
+	li.slide it may look ugly (but readable) on IE6, but I think those 1.3% of Americans who still use IE6 are used to an ugly internet
+	li.slide you can't embed a pdf in here don't even ask
+	li.slide this doesn't change the fact that a picture of text is not the same as text, this won't make your scanned document accesable
+
 .slide
 	h2 to sum up
 	li.slide Powerpoint
 		ul
-			li.slide Complicated
-			li.slide Not portable
+			li.slide often complicated to do simply things
+			li.slide not portable
 			li.slide need the right software
-			li.slide often complicated to do simple things
-			li.slide not very 508 compliant
-	li.slide Deck.js + markdown
+			li.slide unless you have the right version of powerpoint or acrobat, can't even view it
+			li.slide hard to make 508 compliant
+	li.slide Deck.js + Markdown
 		ul
 			li.slide you already know how to use it
 			li.slide view it anywehre
 			li.slide with any browser
 			li.slide when it dosn't work, it still works, just doesn't look as nice
-			li.slide 508 compliant
+			li.slide easy 508 compliant

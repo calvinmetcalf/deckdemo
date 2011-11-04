@@ -8,196 +8,39 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	
 	<title><%= @Document.title%></title>
-	<meta name="description" content="A jQuery library for modern HTML presentations" />
-	<meta name="viewport" content="width=1024, user-scalable=no" />
-	
-	<!-- Core and extension CSS files -->
-	<link rel="stylesheet" href="/scripts/core/deck.core.css" />
-	<link rel="stylesheet" href="/scripts/extensions/goto/deck.goto.css" />
-	<link rel="stylesheet" href="/scripts/extensions/menu/deck.menu.css" />
-	<link rel="stylesheet" href="/scripts/extensions/navigation/deck.navigation.css" />
-	<link rel="stylesheet" href="/scripts/extensions/status/deck.status.css" />
-	<link rel="stylesheet" href="/scripts/extensions/hash/deck.hash.css" />
-<link rel="stylesheet" href="/scripts/extensions/hash/deck.scale.css" />
-	<link href='http://fonts.googleapis.com/css?family=Ubuntu|Josefin+Sans|Atomic+Age|Quicksand|Pinyon+Script|Gochi+Hand|Astloch' rel='stylesheet' type='text/css'>
-	<!-- Theme CSS files (menu swaps these out) -->
-	<link rel="stylesheet" id="style-theme-link" href="/styles/themes/style/otp.css" />
-	<link rel="stylesheet" id="transition-theme-link" href="/styles/themes/transition/horizontal-slide.css" />
-	<script type="text/javascript">
-   
-      function drawChart() {
-var gd = document.getElementById('good').value.replace("'", "\\'");
-var bd = document.getElementById('bad').value.replace("'", "\\'");
-      // Create the data table.
-    document.getElementById("chart").src="https://chart.googleapis.com/chart?cht=p3&chs=600x200&chl=Lame|Awsome&chco=FF0000|00FF00&chtt=People+Who+Think+This+is&chd=t:" + bd + "," + gd
-    }
-    function SelectAll(id)
-{
-    document.getElementById(id).focus();
-    document.getElementById(id).select();
-}
-    </script>
+    <meta name="description" content="A jQuery library for modern HTML presentations" />
+    <meta name="viewport" content="width=1024, user-scalable=no" />
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <!-- Core and extension CSS files -->
+    <link rel="stylesheet" href="scripts/core/deck.core.css" />
+    <link rel="stylesheet" href="scripts/extensions/goto/deck.goto.css" />
+    <link rel="stylesheet" href="scripts/extensions/menu/deck.menu.css" />
+    <link rel="stylesheet" href="scripts/extensions/navigation/deck.navigation.css" />
+    <link rel="stylesheet" href="scripts/extensions/status/deck.status.css" />
+    <link rel="stylesheet" href="scripts/extensions/hash/deck.hash.css" />
+<link media="screen and (min-device-width: 481px)"
+      href="scripts/extensions/scale/deck.scale.css"
+      type="text/css"
+      rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu|Josefin+Sans|Atomic+Age|Quicksand|Pinyon+Script|Gochi+Hand|Astloch' rel='stylesheet' type='text/css'>
+    <!-- Theme CSS files (menu swaps these out) -->
+    <link rel="stylesheet" id="style-theme-link" href="styles/themes/style/otp.css" />
+    <link rel="stylesheet" id="transition-theme-link" href="styles/themes/transition/horizontal-slide.css" />
+    <script type="text/javascript" src="imgchart.js"></script>
      <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load('visualization', '1', {packages: ['orgchart', 'table']});
-    </script>
-    <script type="text/javascript">
-    var map;
-    var table;
-    var data;
-
-    function drawOrgChartAndTable() {
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Name');
-      data.addColumn('string', 'Manager');
-      data.addRows(13);
-      data.setCell(0, 0, 'David');
-      data.setCell(1, 0, 'Clinton');
-      data.setCell(1, 1, 'David');
-      data.setCell(2, 0, 'Bob');
-      data.setCell(2, 1, 'Clinton');
-      data.setCell(3, 0, 'Steve');
-      data.setCell(3, 1, 'Clinton');
-      data.setCell(4, 0, 'Ned');
-      data.setCell(4, 1, 'Clinton');
-      data.setCell(5, 0, 'Lee Ann');
-      data.setCell(5, 1, 'Clinton');
-    data.setCell(6, 0, 'Kevin');
-      data.setCell(6, 1, 'Bob');
-      data.setCell(7, 0, 'Kate');
-      data.setCell(7, 1, 'Steve');
-      data.setCell(8, 0, 'Catherine');
-      data.setCell(8, 1, 'Steve');
-      data.setCell(9, 0, 'Lionel');
-      data.setCell(9, 1, 'Ned');
-      data.setCell(10, 0, 'Mark');
-      data.setCell(10, 1, 'Ned');
-      data.setCell(11, 0, 'Vacant');
-      data.setCell(11, 1, 'Ned');
-      data.setCell(12, 0, 'Stephen');
-      data.setCell(12, 1, 'Steve');
-      var orgchart = new google.visualization.OrgChart(document.getElementById('orgchart'));
-      orgchart.draw(data, {allowCollapse:true});
-      orgchart.collapse(0, true);
-      orgchart.collapse(1, true);
-orgchart.collapse(2, true);
-    orgchart.collapse(3, true);
-    orgchart.collapse(4, true);
-    
-      var table = new google.visualization.Table(document.getElementById('table'));
-      table.draw(data, null);
+    <script type="text/javascript" src="orgchart.js">
       
-      // When the table is selected, update the orgchart.
-      google.visualization.events.addListener(table, 'select', function() {
-        orgchart.setSelection(table.getSelection());
-      });
-    
-      // When the orgchart is selected, update the table visualization.
-      google.visualization.events.addListener(orgchart, 'select', function() {
-        table.setSelection(orgchart.getSelection());
-      });  
-    }
-
-    google.setOnLoadCallback(drawOrgChartAndTable);
     </script>
+    <script type="text/javascript" src="lib/paper.js"></script>
+    <script type="text/paperscript" canvas="canvas" src="paperex.js"></script>
     <script src="raphael-min.js"></script>
         <!--from http://raphaeljs.com/ichart.html-->
-        <script>
-            window.onload = function () {
-                var W = 640,
-                    H = 480,
-                    r = Raphael("holder", W, H),
-                    values = [],
-                    len = 7;
-                for (var i = len; i--;) {
-                    values.push(50);
-                }
-                
-                function translate(x, y) {
-                    return [
-                        50 + (W - 60) / (values.length - 1) * x,
-                        H - 10 - (H - 20) / 100 * y
-                    ];
-                }
-                
-                function drawPath() {
-                    var p = [];
-                    for (var j = 1, jj = X.length; j < jj; j++) {
-                        p.push(X[j], Y[j]);
-                    }
-                    p = ["M", X[0], Y[0], "R"].concat(p);
-                    var subaddon = "L" + (W - 10) + "," + (H - 10) + ",50," + (H - 10) + "z";
-                    path.attr({path: p});
-                    sub.attr({path: p + subaddon});
-                }
-                
-                var p = [["M"].concat(translate(0, values[0]))],
-                    color = "hsb(240°, 1, 1)",
-                    X = [],
-                    Y = [],
-                    blankets = r.set(),
-                    buttons = r.set(),
-                    w = (W - 60) / values.length,
-                    isDrag = -1,
-                    start = null,
-                    sub = r.path().attr({stroke: "none", fill: [90, color, color].join("-"), opacity: 0}),
-                    path = r.path().attr({stroke: color, "stroke-width": 2}),
-                    unhighlight = function () {};
-                var ii;
-                for (i = 0, ii = values.length - 1; i < ii; i++) {
-                    var xy = translate(i, values[i]),
-                        xy1 = translate(i + 1, values[i + 1]),
-                        f;
-                    X[i] = xy[0];
-                    Y[i] = xy[1];
-                    (f = function (i, xy) {
-                        buttons.push(r.circle(xy[0], xy[1], 5).attr({fill: color, stroke: "none"}));
-                        blankets.push(r.circle(xy[0], xy[1], w / 2).attr({stroke: "none", fill: "#fff", opacity: 0}).mouseover(function () {
-                            if (isDrag + 1) {
-                                unhighlight = function () {};
-                            } else {
-                                buttons.items[i].animate({r: 10}, 200);
-                            }
-                        }).mouseout(function () {
-                            if (isDrag + 1) {
-                                unhighlight = function () {
-                                    buttons.items[i].animate({r: 5}, 200);
-                                };
-                            } else {
-                                buttons.items[i].animate({r: 5}, 200);
-                            }
-                        }).drag(function (dx, dy) {
-                            var start = this.start;
-                            start && update(start.i, start.p + dy);
-                        }, function (x, y) {
-                            this.start = {i: i, m: y, p: Y[i]};
-                        }));
-                        blankets.items[blankets.items.length - 1].node.style.cursor = "move";
-                    })(i, xy);
-                    if (i == ii - 1) {
-                        f(i + 1, xy1);
-                    }
-                }
-                xy = translate(ii, values[ii]);
-                X.push(xy[0]);
-                Y.push(xy[1]);
-                
-                drawPath();
-                var update = function (i, d) {
-                    (d > H - 10) && (d = H - 10);
-                    (d < 10) && (d = 10);
-                    Y[i] = d;
-                    drawPath();
-                    buttons.items[i].attr({cy: d});
-                    blankets.items[i].attr({cy: d});
-                    r.safari();
-                };
-            };
-        </script>
-	<!-- Custom CSS just for this page -->
-	
-	
-	<script src="/scripts/modernizr.custom.js"></script>
+        <script src="raph.js">
+           </script>
+    <!-- Custom CSS just for this page -->
+    
+    
+    <script src="scripts/modernizr.custom.js"></script>
 </head>
 
 <body class="deck-container"><%- @content %>
@@ -223,13 +66,13 @@ orgchart.collapse(2, true);
 <script>window.jQuery</script>
 
 <!-- Deck Core and extensions -->
-<script src="/scripts/core/deck.core.js"></script>
-<script src="/scripts/extensions/menu/deck.menu.js"></script>
-<script src="/scripts/extensions/goto/deck.goto.js"></script>
-<script src="/scripts/extensions/status/deck.status.js"></script>
-<script src="/scripts/extensions/navigation/deck.navigation.js"></script>
-<script src="/scripts/extensions/hash/deck.hash.js"></script>
-<script src="/scripts/extensions/scale/deck.scale.js"></script>
+<script src="scripts/core/deck.core.js"></script>
+<script src="scripts/extensions/menu/deck.menu.js"></script>
+<script src="scripts/extensions/goto/deck.goto.js"></script>
+<script src="scripts/extensions/status/deck.status.js"></script>
+<script src="scripts/extensions/navigation/deck.navigation.js"></script>
+<script src="scripts/extensions/hash/deck.hash.js"></script>
+<script src="scripts/extensions/scale/deck.scale.js"></script>
 <script type="text/javascript">
 $(function() {
 	// Deck initialization
