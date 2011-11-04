@@ -35,7 +35,7 @@ google.load('visualization', '1', {packages: ['orgchart', 'table']});
       data.setCell(12, 0, 'Stephen');
       data.setCell(12, 1, 'Steve');
       var orgchart = new google.visualization.OrgChart(document.getElementById('orgchart'));
-      orgchart.draw(data, {allowCollapse:true});
+      orgchart.draw(data, {allowCollapse:true}, {nodeClass:'orgnode'});
       orgchart.collapse(0, true);
       orgchart.collapse(1, true);
 orgchart.collapse(2, true);

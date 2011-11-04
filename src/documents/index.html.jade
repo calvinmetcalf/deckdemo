@@ -9,7 +9,8 @@ title: 'Presentation'
 	h3 An Alliterative Problem
 	
 .slide
-	h2 follow along at http://ppp.no.de
+	h2 follow along at 
+		a(href='http://ppp.no.de') ppp.no.de
 	
 	li move around with arrow keys
 	li or if your using Internet Explorer (IE) 8 or lower click the buttons to go back and forth
@@ -243,10 +244,11 @@ title: 'Presentation'
 	img(src='https://chart.googleapis.com/chart?cht=p3&chs=600x200&chl=Lame|Awesome&chco=FF0000|00FF00&chtt=People+Who+Think+This+is&chd=t:7,1', id='chart')
 	
 .slide
-	h2 make an org chart
-	#table(style='width: 300px; height: 300px;')
-	
-	#orgchart(style='width: 300px; height: 300px;')
+	h2 embed a table
+	li(style='float:left;clear:none;') try sorting it
+		#table(style='width: 300px; height: 300px;')
+	li.slide(style='float:right;clear:none;') turn it into a an org chart (try double clicking on a box)
+		#orgchart(style='width: 300px; height: 400px;border: 0 none;')
 	
 .slide
 	h2 make a graph
